@@ -1,0 +1,48 @@
+{
+  "_from": "file:vulcanux_modules\\packages\\xbs-webix-pro-7.0.3.tgz",
+  "_id": "@xbs/webix-pro@7.0.3",
+  "_inBundle": false,
+  "_integrity": "sha512-5sHNC0btK/cbqDH4NalvIxsMK1IzCjWku0MsV56+s7V6MOAvkGWT3072F2IBeiKupta322vuuEWNCwtJpRUBRA==",
+  "_location": "/@xbs/webix-pro",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "file",
+    "where": "D:\\work\\webix\\vux-environment",
+    "raw": "@xbs/webix-pro@file:vulcanux_modules/packages/xbs-webix-pro-7.0.3.tgz",
+    "name": "@xbs/webix-pro",
+    "escapedName": "@xbs%2fwebix-pro",
+    "scope": "@xbs",
+    "rawSpec": "file:vulcanux_modules/packages/xbs-webix-pro-7.0.3.tgz",
+    "saveSpec": "file:vulcanux_modules\\packages\\xbs-webix-pro-7.0.3.tgz",
+    "fetchSpec": "D:\\work\\webix\\vux-environment\\vulcanux_modules\\packages\\xbs-webix-pro-7.0.3.tgz"
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "D:\\work\\webix\\vux-environment\\vulcanux_modules\\packages\\xbs-webix-pro-7.0.3.tgz",
+  "_shasum": "6581339e11146c8e55dca19a2437cb34bd820ae4",
+  "_spec": "@xbs/webix-pro@file:vulcanux_modules/packages/xbs-webix-pro-7.0.3.tgz",
+  "_where": "D:\\work\\webix\\vux-environment",
+  "author": {
+    "name": "XB Software"
+  },
+  "bundleDependencies": false,
+  "deprecated": false,
+  "description": "Webix UI",
+  "keywords": [
+    "webix",
+    "ui",
+    "widgets"
+  ],
+  "license": "SEE LICENSE IN license.text",
+  "main": "webix.js",
+  "name": "@xbs/webix-pro",
+  "publishConfig": {
+    "registry": "https://npm.webix.com"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "types": "types/webix.d.ts",
+  "version": "7.0.3"
+}
