@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./codebase/webix.js"></script>
+    <link rel="stylesheet" href="./codebase/webix.min.css">
+    <title>Document</title>
+
+</head>
+
+<body>
+    <script>
+        function img(obj) {
+            return '<img src="' + obj.src + '" class="content" ondragstart="return false"/><div class="title">' + obj.title + '</div>'
+        }
+
+
+        webix.ui({
+            view: "scrollview",
+            id: "scrollview",
+            scroll: "y",
+            height: 500,
+            body: {
+                rows: [
+                    { template: "<h1>header</h1>", autoheight: true },
+                    { template: "<h1>navigation</h1>", autoheight: true },
+                    {
+                        view: "carousel",
+                        id: "carousel",
+                        height: 300,
+                        cols: [
+                            { css: "image", template: img, data: { src: "http://docs.webix.com/samples/26_carousel/imgs/image001.jpg" } },
+                            { css: "image", template: img, data: { src: "http://docs.webix.com/samples/26_carousel/imgs/image002.jpg" } },
+                            { css: "image", template: img, data: { src: "http://docs.webix.com/samples/26_carousel/imgs/image003.jpg" } },
+                            { css: "image", template: img, data: { src: "http://docs.webix.com/samples/26_carousel/imgs/image004.jpg" } },
+                            { css: "image", template: img, data: { src: "http://docs.webix.com/samples/26_carousel/imgs/image005.jpg" } },
+                            { css: "image", template: img, data: { src: "http://docs.webix.com/samples/26_carousel/imgs/image006.jpg" } }
+                        ],
+                        navigation: {
+                            type: "side",
+                            items: false
+                        }
+                    },
+                    { template: "<h2>Other content height: 300;<h2>", height: 300 },
+                    { template: "<h1>footer</h1>", autoheight: true },
+                ]
+            }
+        })
+
+    </script>
+</body>
+
+</html>
