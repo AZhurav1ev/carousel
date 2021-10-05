@@ -12,44 +12,44 @@
 </head>
 
 <body>
+   <h1>LOCK PORTRAIT</h1>
+    <input type="button" value="Portrait" onclick="lock('portrait')"/>
+    <input type="button" value="Portrait Primary" onclick="lock('portrait-primary')"/>
+    <input type="button" value="Portrait Secondary" onclick="lock('portrait-secondary')"/>
+
+    <h1>LOCK LANDSCAPE</h1>
+    <input type="button" value="Landscape" onclick="lock('landscape')"/>
+    <input type="button" value="Landscape Primary" onclick="lock('landscape-primary')"/>
+    <input type="button" value="Landscape Secondary" onclick="lock('landscape-secondary')"/>
+
+    <h1>UNLOCK</h1>
+    <input type="button" value="Unlock" onclick="unlock()"/>
+    
     <script>
-        function img(obj) {
-            return '<img src="' + obj.src + '" class="content" ondragstart="return false"/><div class="title">' + obj.title + '</div>'
+        // (A) LOCK SCREEN ORIENTATION
+        function lock (orientation) {
+          // (A1) GO INTO FULL SCREEN FIRST
+          let de = document.documentElement;
+          if (de.requestFullscreen) { de.requestFullscreen(); }
+          else if (de.mozRequestFullScreen) { de.mozRequestFullScreen(); }
+          else if (de.webkitRequestFullscreen) { de.webkitRequestFullscreen(); }
+          else if (de.msRequestFullscreen) { de.msRequestFullscreen(); }
+
+          // (A2) THEN LOCK ORIENTATION
+          screen.orientation.lock(orientation);
         }
 
+        // (B) UNLOCK SCREEN ORIENTATION
+        function unlock () {
+          // (B1) UNLOCK FIRST
+          screen.orientation.unlock();
 
-        webix.ui({
-            view: "scrollview",
-            id: "scrollview",
-            scroll: "y",
-            height: 500,
-            body: {
-                rows: [
-                    { template: "<h1>header</h1>", autoheight: true },
-                    { template: "<h1>navigation</h1>", autoheight: true },
-                    {
-                        view: "carousel",
-                        id: "carousel",
-                        height: 300,
-                        cols: [
-                            { css: "image", template: img, data: { src: "http://docs.webix.com/samples/26_carousel/imgs/image001.jpg" } },
-                            { css: "image", template: img, data: { src: "http://docs.webix.com/samples/26_carousel/imgs/image002.jpg" } },
-                            { css: "image", template: img, data: { src: "http://docs.webix.com/samples/26_carousel/imgs/image003.jpg" } },
-                            { css: "image", template: img, data: { src: "http://docs.webix.com/samples/26_carousel/imgs/image004.jpg" } },
-                            { css: "image", template: img, data: { src: "http://docs.webix.com/samples/26_carousel/imgs/image005.jpg" } },
-                            { css: "image", template: img, data: { src: "http://docs.webix.com/samples/26_carousel/imgs/image006.jpg" } }
-                        ],
-                        navigation: {
-                            type: "side",
-                            items: false
-                        }
-                    },
-                    { template: "<h2>Other content height: 300;<h2>", height: 300 },
-                    { template: "<h1>footer</h1>", autoheight: true },
-                ]
-            }
-        })
-
+          // (B2) THEN EXIT FULL SCREEN
+          if (document.exitFullscreen) { document.exitFullscreen(); }
+          else if (document.webkitExitFullscreen) { document.webkitExitFullscreen(); }
+          else if (document.mozCancelFullScreen) { document.mozCancelFullScreen(); }
+          else if (document.msExitFullscreen) { document.msExitFullscreen(); }
+        }
     </script>
 </body>
 
