@@ -12,7 +12,7 @@
 </head>
 
 <body>
-   <script>
+    <script>
         webix.ui({
             rows: [
                 {
@@ -34,19 +34,7 @@
                     }
                 },
                 {
-                    view: "button",
-                    css: 'webix_danger',
-                    width: 250,
-                    height: 45,
-                    value: "download pdf",
-                    click: function () {
-                        let a = document.createElement('a');
-                        a.href = "https://www.rulit.me/download-books-386934.html?t=pdf";
-                        a.download = fileName;
-                        document.body.appendChild(a);
-                        a.click();
-                        document.body.removeChild(a);
-                    }
+                    template: `<a href="https://www.volkswagen-minsk.by/upload/iblock/b27/New-Tiguan-Full-Price-_-06.09.21.pdf">download pdf</a>`
                 }
             ]
         });
