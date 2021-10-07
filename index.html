@@ -14,22 +14,41 @@
 <body>
    <script>
         webix.ui({
-            view: "button",
-            css: 'webix_danger',
-            width: 250,
-            height: 45,
-            value: "download csv",
-            click: function () {
-                const csvContent = 'Year,2021,2020,2019, 2018\nJan,9724,0,0,0,\nFeb,7480,0,0,0,\nMar,8976,0,0,0,\nApr,5236,0,0,0,\nMay,5984,0,0,0,\nJun,3740,0,0,0,\nJul,0,0,0,0,\nAug,0,0,0,0,\nSep,0,0,0,0,\nOct,0,4488,0,0,\nNov,0,4488,0,0,\nDec,0,3740,0,0,\n';
-                const fileName = 'test';
+            rows: [
+                {
+                    view: "button",
+                    css: 'webix_danger',
+                    width: 250,
+                    height: 45,
+                    value: "download csv",
+                    click: function () {
+                        const csvContent = 'Year,2021,2020,2019, 2018\nJan,9724,0,0,0,\nFeb,7480,0,0,0,\nMar,8976,0,0,0,\nApr,5236,0,0,0,\nMay,5984,0,0,0,\nJun,3740,0,0,0,\nJul,0,0,0,0,\nAug,0,0,0,0,\nSep,0,0,0,0,\nOct,0,4488,0,0,\nNov,0,4488,0,0,\nDec,0,3740,0,0,\n';
+                        const fileName = 'test';
 
-                let a = document.createElement('a');
-                a.href = 'data:text/csv;charset=utf-8,' + encodeURI(csvContent);
-                a.download = fileName;
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
-            }
+                        let a = document.createElement('a');
+                        a.href = 'data:text/csv;charset=utf-8,' + encodeURI(csvContent);
+                        a.download = fileName;
+                        document.body.appendChild(a);
+                        a.click();
+                        document.body.removeChild(a);
+                    }
+                },
+                {
+                    view: "button",
+                    css: 'webix_danger',
+                    width: 250,
+                    height: 45,
+                    value: "download pdf",
+                    click: function () {
+                        let a = document.createElement('a');
+                        a.href = "https://www.rulit.me/download-books-386934.html?t=pdf";
+                        a.download = fileName;
+                        document.body.appendChild(a);
+                        a.click();
+                        document.body.removeChild(a);
+                    }
+                }
+            ]
         });
     </script>
 </body>
