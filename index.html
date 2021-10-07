@@ -12,44 +12,25 @@
 </head>
 
 <body>
-   <h1>LOCK PORTRAIT</h1>
-    <input type="button" value="Portrait" onclick="lock('portrait')"/>
-    <input type="button" value="Portrait Primary" onclick="lock('portrait-primary')"/>
-    <input type="button" value="Portrait Secondary" onclick="lock('portrait-secondary')"/>
+   <script>
+        webix.ui({
+            view: "button",
+            css: 'webix_danger',
+            width: 250,
+            height: 45,
+            value: "download csv",
+            click: function () {
+                const csvContent = 'Year,2021,2020,2019, 2018\nJan,9724,0,0,0,\nFeb,7480,0,0,0,\nMar,8976,0,0,0,\nApr,5236,0,0,0,\nMay,5984,0,0,0,\nJun,3740,0,0,0,\nJul,0,0,0,0,\nAug,0,0,0,0,\nSep,0,0,0,0,\nOct,0,4488,0,0,\nNov,0,4488,0,0,\nDec,0,3740,0,0,\n';
+                const fileName = 'test';
 
-    <h1>LOCK LANDSCAPE</h1>
-    <input type="button" value="Landscape" onclick="lock('landscape')"/>
-    <input type="button" value="Landscape Primary" onclick="lock('landscape-primary')"/>
-    <input type="button" value="Landscape Secondary" onclick="lock('landscape-secondary')"/>
-
-    <h1>UNLOCK</h1>
-    <input type="button" value="Unlock" onclick="unlock()"/>
-    
-    <script>
-        // (A) LOCK SCREEN ORIENTATION
-        function lock (orientation) {
-          // (A1) GO INTO FULL SCREEN FIRST
-          let de = document.documentElement;
-          if (de.requestFullscreen) { de.requestFullscreen(); }
-          else if (de.mozRequestFullScreen) { de.mozRequestFullScreen(); }
-          else if (de.webkitRequestFullscreen) { de.webkitRequestFullscreen(); }
-          else if (de.msRequestFullscreen) { de.msRequestFullscreen(); }
-
-          // (A2) THEN LOCK ORIENTATION
-          screen.orientation.lock(orientation);
-        }
-
-        // (B) UNLOCK SCREEN ORIENTATION
-        function unlock () {
-          // (B1) UNLOCK FIRST
-          screen.orientation.unlock();
-
-          // (B2) THEN EXIT FULL SCREEN
-          if (document.exitFullscreen) { document.exitFullscreen(); }
-          else if (document.webkitExitFullscreen) { document.webkitExitFullscreen(); }
-          else if (document.mozCancelFullScreen) { document.mozCancelFullScreen(); }
-          else if (document.msExitFullscreen) { document.msExitFullscreen(); }
-        }
+                let a = document.createElement('a');
+                a.href = 'data:text/csv;charset=utf-8,' + encodeURI(csvContent);
+                a.download = fileName;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+            }
+        });
     </script>
 </body>
 
