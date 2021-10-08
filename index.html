@@ -20,19 +20,19 @@
                     css: 'webix_danger',
                     width: 250,
                     height: 45,
-                    value: "download csv v1.2",
+                    value: "download csv v1.3",
                     click: function () {
                         const csv = 'Year,2021,2020,2019, 2018\nJan,9724,0,0,0,\nFeb,7480,0,0,0,\nMar,8976,0,0,0,\nApr,5236,0,0,0,\nMay,5984,0,0,0,\nJun,3740,0,0,0,\nJul,0,0,0,0,\nAug,0,0,0,0,\nSep,0,0,0,0,\nOct,0,4488,0,0,\nNov,0,4488,0,0,\nDec,0,3740,0,0,\n';
-                        const fileName = 'test';
+                        const filename = 'test';
+                        var blob = new Blob([csv], { type: "text/csv" || 'application/octet-stream' })
+                        var lnk = document.createElement('a'),
+                            url = window.URL,
+                            objectURL;
+                        lnk.download = filename || 'untitled';
+                        lnk.href = objectURL = url.createObjectURL(blob);
+                        lnk.dispatchEvent(new MouseEvent('click'));
+                        setTimeout(url.revokeObjectURL.bind(url, objectURL));
 
-                        var csvData = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-
-                        var link = document.createElement('a');
-                        link.href = window.URL.createObjectURL(csvData);
-                        link.setAttribute('download', fileName);
-                        document.body.appendChild(link);
-                        link.click();
-                        document.body.removeChild(link);
                     }
                 }
             ]
