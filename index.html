@@ -20,19 +20,44 @@
                     css: 'webix_danger',
                     width: 250,
                     height: 45,
-                    value: "download csv v1.3",
+                    value: "download csv v1.4",
                     click: function () {
-                        const csv = 'Year,2021,2020,2019, 2018\nJan,9724,0,0,0,\nFeb,7480,0,0,0,\nMar,8976,0,0,0,\nApr,5236,0,0,0,\nMay,5984,0,0,0,\nJun,3740,0,0,0,\nJul,0,0,0,0,\nAug,0,0,0,0,\nSep,0,0,0,0,\nOct,0,4488,0,0,\nNov,0,4488,0,0,\nDec,0,3740,0,0,\n';
-                        const filename = 'test';
-                        var blob = new Blob([csv], { type: "text/csv" || 'application/octet-stream' })
-                        var lnk = document.createElement('a'),
-                            url = window.URL,
-                            objectURL;
-                        lnk.download = filename || 'untitled';
-                        lnk.href = objectURL = url.createObjectURL(blob);
-                        lnk.dispatchEvent(new MouseEvent('click'));
-                        setTimeout(url.revokeObjectURL.bind(url, objectURL));
+                        let strData = 'Year,2021,2020,2019, 2018\nJan,9724,0,0,0,\nFeb,7480,0,0,0,\nMar,8976,0,0,0,\nApr,5236,0,0,0,\nMay,5984,0,0,0,\nJun,3740,0,0,0,\nJul,0,0,0,0,\nAug,0,0,0,0,\nSep,0,0,0,0,\nOct,0,4488,0,0,\nNov,0,4488,0,0,\nDec,0,3740,0,0,\n';
+                        let strFileName = 'test';
+                        let strMimeType = "text/csv";
 
+                        var D = document,
+                            a = D.createElement("a");
+                        strMimeType = strMimeType || "application/octet-stream";
+
+
+                        if (navigator.msSaveBlob) { // IE10
+                            return navigator.msSaveBlob(new Blob([strData], { type: strMimeType }), strFileName);
+                        } /* end if(navigator.msSaveBlob) */
+
+
+                        if ('download' in a) { //html5 A[download]
+                            a.href = "data:" + strMimeType + "," + encodeURIComponent(strData);
+                            a.setAttribute("download", strFileName);
+                            a.innerHTML = "downloading...";
+                            D.body.appendChild(a);
+                            setTimeout(function () {
+                                a.click();
+                                D.body.removeChild(a);
+                            }, 66);
+                            return true;
+                        } /* end if('download' in a) */
+
+
+                        //do iframe dataURL download (old ch+FF):
+                        var f = D.createElement("iframe");
+                        D.body.appendChild(f);
+                        f.src = "data:" + strMimeType + "," + encodeURIComponent(strData);
+
+                        setTimeout(function () {
+                            D.body.removeChild(f);
+                        }, 333);
+                        return true;
                     }
                 }
             ]
