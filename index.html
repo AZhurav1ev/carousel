@@ -20,14 +20,15 @@
                     css: 'webix_danger',
                     width: 250,
                     height: 45,
-                    value: "download csv",
-                    click: function () {
-                        const csvContent = 'Year,2021,2020,2019, 2018\nJan,9724,0,0,0,\nFeb,7480,0,0,0,\nMar,8976,0,0,0,\nApr,5236,0,0,0,\nMay,5984,0,0,0,\nJun,3740,0,0,0,\nJul,0,0,0,0,\nAug,0,0,0,0,\nSep,0,0,0,0,\nOct,0,4488,0,0,\nNov,0,4488,0,0,\nDec,0,3740,0,0,\n';
+                    value: "download csv v1",
+                    click: function () {   
+                        onst csv = 'Year,2021,2020,2019, 2018\nJan,9724,0,0,0,\nFeb,7480,0,0,0,\nMar,8976,0,0,0,\nApr,5236,0,0,0,\nMay,5984,0,0,0,\nJun,3740,0,0,0,\nJul,0,0,0,0,\nAug,0,0,0,0,\nSep,0,0,0,0,\nOct,0,4488,0,0,\nNov,0,4488,0,0,\nDec,0,3740,0,0,\n';
                         const fileName = 'test';
 
-                        let a = document.createElement('a');
-                        a.href = 'data:text/csv;charset=utf-8,' + encodeURI(csvContent);
-                        a.download = fileName;
+                        var blob = new Blob([csv]);
+                        var a = window.document.createElement("a");
+                        a.href = window.URL.createObjectURL(blob, { type: "text/plain" });
+                        a.download = "test.csv";
                         document.body.appendChild(a);
                         a.click();
                         document.body.removeChild(a);
