@@ -15,25 +15,26 @@
     <script>
         webix.ui({
             rows: [
-                {
+                 {
                     view: "button",
                     css: 'webix_danger',
                     width: 250,
                     height: 45,
-                    value: "download csv v1",
+                    value: "download csv v1.2",
                     click: function () {
                         const csv = 'Year,2021,2020,2019, 2018\nJan,9724,0,0,0,\nFeb,7480,0,0,0,\nMar,8976,0,0,0,\nApr,5236,0,0,0,\nMay,5984,0,0,0,\nJun,3740,0,0,0,\nJul,0,0,0,0,\nAug,0,0,0,0,\nSep,0,0,0,0,\nOct,0,4488,0,0,\nNov,0,4488,0,0,\nDec,0,3740,0,0,\n';
                         const fileName = 'test';
 
-                        var blob = new Blob([csv]);
-                        var a = window.document.createElement("a");
-                        a.href = window.URL.createObjectURL(blob, { type: "text/plain" });
-                        a.download = "test.csv";
-                        document.body.appendChild(a);
-                        a.click();
-                        document.body.removeChild(a);
+                        var csvData = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
 
+                        var link = document.createElement('a');
+                        link.href = window.URL.createObjectURL(csvData);
+                        link.setAttribute('download', fileName);
+                        document.body.appendChild(link);
+                        link.click();
+                        document.body.removeChild(link);
                     }
+                }
                 },
             ]
         });
