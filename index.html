@@ -26,24 +26,12 @@
 		</style>
 	</head>
 	<body >
-		<button id="download-button" class="btn btn-primary btn-lg" data-files="fixture/unicorn.jpg.zip fixture/rainbow.jpg.zip fixture/unicorn2.jpg.zip">Download multiple files</button>
-		<button id="download-rename-button" class="btn btn-primary btn-lg" data-files="fixture/unicorn.jpg.zip fixture/rainbow.jpg.zip fixture/unicorn2.jpg.zip">Download multiple files and rename them</button>
+		<button id="download-button" class="btn btn-primary btn-lg" data-files="fixture/unicorn.jpg.zip fixture/rainbow.jpg.zip fixture/unicorn2.jpg.zip">Download</button>
 		<script src="browser.js"></script>
 		<script>
 			document.querySelector('#download-button').addEventListener('click', event => {
 				const files = event.target.dataset.files.split(' ');
 				multiDownload(files);
-			});
-
-			document.querySelector('#download-rename-button').addEventListener('click', event => {
-				const files = event.target.dataset.files.split(' ');
-
-				multiDownload(files, {
-					rename: ({url, index, urls}) => {
-						const extension = url.slice(url.lastIndexOf('.') + 1);
-						return `file${index}.${extension}`;
-					}
-				});
 			});
 		</script>
 	</body>
