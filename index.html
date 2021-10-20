@@ -1,42 +1,79 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
-	<meta charset="utf-8">
-	<meta name="author" content="Sindre Sorhus">
-	<meta name="viewport" content="width=device-width">
-	<title>multi-download example</title>
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-	<style>
-		#download-button,
-		#download-rename-button {
-			height: 50px;
-			position: absolute;
-			left: 50%;
-			transform: translate(-50%, -50%);
-			outline: none;
-		}
-
-		#download-button {
-			top: calc(50% - 50px);
-		}
-
-		#download-rename-button {
-			top: calc(50% + 50px);
-		}
-	</style>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./codebase/webix.js"></script>
+    <link rel="stylesheet" href="./codebase/webix.min.css">
+    <title>Responsive pager group</title>
 </head>
 
 <body>
-	<button id="download-button" class="btn btn-primary btn-lg"
-		data-files="csvs/data.zip csvs/data-2.zip csvs/data-3.zip">Download</button>
-	<script src="browser.js"></script>
-	<script>
-		document.querySelector('#download-button').addEventListener('click', event => {
-			const files = event.target.dataset.files.split(' ');
-			multiDownload(files);
-		});
-	</script>
+    <script src="data.js"></script>
+    <script>
+        webix.ui({
+            rows: [
+                {},
+                {
+                    cols: [
+                        {},
+                        {
+                            rows: [
+                                {
+                                    view: "datatable",
+                                    data: grid_data,
+                                    scroll: false,
+                                    columns: [
+                                        { id: "rank", header: "", width: 50 },
+                                        { id: "title", header: "Film title", fillspace: true },
+                                        { id: "year", header: "Released", width: 80 },
+                                        { id: "votes", header: "Votes", width: 100 }
+                                    ],
+                                    pager: "pager"
+                                },
+                                {
+                                    view: "pager",
+                                    id: "pager",
+                                    group: 2,
+                                    size: 4,
+                                    template: function (data, common) {
+                                        console.log(data)
+
+                                        return common.first(data, common) +
+                                            common.prev(data, common) +
+                                            common.pages(data, common) +
+                                            common.next(data, common) +
+                                            common.last(data, common);
+                                    },
+                                    on: {
+                                        onAfterRender() {
+                                            const pagerButton = this.$view.querySelector('button');
+                                            const { width, marginLeft, marginRight } = window.getComputedStyle(pagerButton);
+
+                                            const pagerButtonWidth = [width, marginLeft, marginRight].reduce((acc, value) => acc + parseFloat(value), 0);
+                                            const pagerWidth = this.$width;
+
+                                            let pagerGroup = Math.floor(pagerWidth / pagerButtonWidth - 4);
+                                            if (pagerGroup < 1) pagerGroup = 1;
+
+                                            if (this.config.group !== pagerGroup) {
+                                                this.define("group", pagerGroup);
+                                                this.render();
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        },
+                        {}
+                    ]
+                },
+                {}
+            ]
+        });
+    </script>
 </body>
 
 </html>
