@@ -19,52 +19,59 @@
             rows: [
                 {},
                 {
-                    rows: [
-                        {
-                            view: "datatable",
-                            data: grid_data,
-                            scroll: false,
-                            columns: [
-                                { id: "rank", header: "", width: 50 },
-                                { id: "title", header: "Film title", fillspace: true },
-                                { id: "year", header: "Released", width: 80 },
-                                { id: "votes", header: "Votes", width: 100 }
-                            ],
-                            pager: "pager"
-                        },
-                        {
-                            view: "pager",
-                            id: "pager",
-                            group: 2,
-                            size: 2,
-                            template: function (data, common) {
-                                console.log(data)
+                    view: "datatable",
+                    data: grid_data,
+                    scroll: false,
+                    columns: [
+                        { id: "rank", header: "", width: 50 },
+                        { id: "title", header: "Film title", fillspace: true },
+                        { id: "year", header: "Released", width: 80 },
+                        { id: "votes", header: "Votes", width: 100 }
+                    ],
+                    pager: "pager",
+                    on: {
+                        onResize() {
+                            $$(this.config.pager.id).render();
+                        }
+                    }
+                },
+                {
+                    view: "pager",
+                    id: "pager",
+                    group: 2,
+                    size: 1,
+                    template: function (data, common) {
+                        const { page, limit } = data;
+                        if (page === 0) {
+                            return common.pages(data, common) + common.next(data, common) + common.last(data, common);
+                        } else if (page + 1 === limit) {
+                            return common.first(data, common) + common.prev(data, common) + common.pages(data, common);
+                        } else {
+                            return common.first(data, common) + common.prev(data, common) + common.pages(data, common) + common.next(data, common) + common.last(data, common);
+                        }
+                    },
+                    on: {
+                        onAfterRender() {
+                            const { page, limit } = this.config;
 
-                                return common.first(data, common) +
-                                    common.prev(data, common) +
-                                    common.pages(data, common) +
-                                    common.next(data, common) +
-                                    common.last(data, common);
-                            },
-                            on: {
-                                onAfterRender() {
-                                    const pagerButton = this.$view.querySelector('button');
-                                    const { width, marginLeft, marginRight } = window.getComputedStyle(pagerButton);
+                            if (!this.pagerButtonWidth) {
+                                const pagerButton = this.$view.querySelector('button');
+                                const { width, marginLeft, marginRight } = window.getComputedStyle(pagerButton);
+                                this.pagerButtonWidth = [width, marginLeft, marginRight].reduce((acc, value) => acc + parseFloat(value), 0);
+                            }
 
-                                    const pagerButtonWidth = [width, marginLeft, marginRight].reduce((acc, value) => acc + parseFloat(value), 0);
-                                    const pagerWidth = this.$width;
+                            const arrows = page === 0 || page + 1 === limit ? 2 : 4;
 
-                                    let pagerGroup = Math.floor(pagerWidth / pagerButtonWidth - 4);
-                                    if (pagerGroup < 1) pagerGroup = 1;
+                            let pagerGroup = Math.floor(this.$width / this.pagerButtonWidth - arrows);
+                            if (pagerGroup < 1) pagerGroup = 1;
 
-                                    if (this.config.group !== pagerGroup) {
-                                        this.define("group", pagerGroup);
-                                        this.render();
-                                    }
-                                }
+
+                            if (this.config.group !== pagerGroup) {
+                                this.define("group", pagerGroup);
+                                this.render();
                             }
                         }
-                    ]
+                    }
                 },
                 {}
             ]
