@@ -15,7 +15,7 @@
 <body>
     <script src="data.js"></script>
     <script>
-        webix.ui({
+         webix.ui({
             rows: [
                 {},
                 {
@@ -28,18 +28,20 @@
                         { id: "year", header: "Released", width: 80 },
                         { id: "votes", header: "Votes", width: 100 }
                     ],
-                    pager: "pager",
+                    //pager: "pager",
                     on: {
                         onResize() {
-                            $$(this.config.pager.id).render();
+                            $$("pager").render();
                         }
                     }
                 },
                 {
                     view: "pager",
                     id: "pager",
-                    group: 2,
+                    group: 24,
+                    count: 24,
                     size: 1,
+                    master: false,
                     template: function (data, common) {
                         const { page, limit } = data;
                         if (page === 0) {
@@ -50,13 +52,15 @@
                             return common.first(data, common) + common.prev(data, common) + common.pages(data, common) + common.next(data, common) + common.last(data, common);
                         }
                     },
+
                     on: {
                         onAfterRender() {
+                            console.log("render")
                             const { page, limit } = this.config;
-
                             if (!this.pagerButtonWidth) {
                                 const pagerButton = this.$view.querySelector('button');
                                 const { width, marginLeft, marginRight } = window.getComputedStyle(pagerButton);
+                                if (!width || !marginLeft || !marginRight) return webix.delay(() => this.callEvent('onAfterRender'));
                                 this.pagerButtonWidth = [width, marginLeft, marginRight].reduce((acc, value) => acc + parseFloat(value), 0);
                             }
 
