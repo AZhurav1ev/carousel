@@ -7,75 +7,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="./codebase/webix.js"></script>
     <link rel="stylesheet" href="./codebase/webix.min.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
-        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-    <title>Responsive pager group</title>
+    <title>Password field</title>
 </head>
 
 <body>
-    <script src="data.js"></script>
+    <script src="./password-field.js"></script>
     <script>
-         webix.ui({
+        webix.ui({
             rows: [
                 {},
                 {
-                    view: "datatable",
-                    data: grid_data,
-                    scroll: false,
-                    columns: [
-                        { id: "rank", header: "", width: 50 },
-                        { id: "title", header: "Film title", fillspace: true },
-                        { id: "year", header: "Released", width: 80 },
-                        { id: "votes", header: "Votes", width: 100 }
-                    ],
-                    //pager: "pager",
-                    on: {
-                        onResize() {
-                            $$("pager").render();
-                        }
-                    }
-                },
-                {
-                    view: "pager",
-                    id: "pager",
-                    group: 24,
-                    count: 24,
-                    size: 1,
-                    master: false,
-                    template: function (data, common) {
-                        const { page, limit } = data;
-                        if (page === 0) {
-                            return common.pages(data, common) + common.next(data, common) + common.last(data, common);
-                        } else if (page + 1 === limit) {
-                            return common.first(data, common) + common.prev(data, common) + common.pages(data, common);
-                        } else {
-                            return common.first(data, common) + common.prev(data, common) + common.pages(data, common) + common.next(data, common) + common.last(data, common);
-                        }
-                    },
+                    cols: [
+                        {},
+                        {
+                            view: 'vux-password-field',
 
-                    on: {
-                        onAfterRender() {
-                            console.log("render")
-                            const { page, limit } = this.config;
-                            if (!this.pagerButtonWidth) {
-                                const pagerButton = this.$view.querySelector('button');
-                                const { width, marginLeft, marginRight } = window.getComputedStyle(pagerButton);
-                                if (!width || !marginLeft || !marginRight) return webix.delay(() => this.callEvent('onAfterRender'));
-                                this.pagerButtonWidth = [width, marginLeft, marginRight].reduce((acc, value) => acc + parseFloat(value), 0);
-                            }
-
-                            const arrows = page === 0 || page + 1 === limit ? 2 : 4;
-
-                            let pagerGroup = Math.floor(this.$width / this.pagerButtonWidth - arrows);
-                            if (pagerGroup < 1) pagerGroup = 1;
-
-
-                            if (this.config.group !== pagerGroup) {
-                                this.define("group", pagerGroup);
-                                this.render();
-                            }
-                        }
-                    }
+                        },
+                        {}
+                    ]
                 },
                 {}
             ]
