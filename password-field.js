@@ -42,23 +42,24 @@ webix.protoUI({
     name: 'vux-password-field',
     defaults: {
         iconBtnProvider: 'webix_icon',
-        iconBtnShow: 'vuxicon-viewoff',
-        iconBtnHide: 'vuxicon-view'
+        iconBtnShow: 'wxi-eye',
+        iconBtnHide: 'wxi-eye-slash',
+        type: 'password',
+        css: 'vux_password_field'
     },
-    $init(config) {
-        var _this = this;
-        config.type = 'password';
-        this.$view.className += ' vux_password_field';
-        this.attachEvent('onAfterRender', function () {
-            _this.attachEvent('onReadyView', function () {
-                return _this._setButtonShowPassword();
-            });
+    $init() {
+        this.attachEvent('onReadyView', function () {
+            this._setButtonShowPassword();
         });
+        this.attachEvent('onAfterRender', function () {
+            console.log('render')
+        })
     },
     _setButtonShowPassword() {
         if (!this._btnShowPassword) {
             this._btnShowPassword = this._createButtonShow();
         }
+        this._input.parentElement.style.position = "relative";
         this._input.parentElement.appendChild(this._btnShowPassword);
     },
     _createButtonShow() {
